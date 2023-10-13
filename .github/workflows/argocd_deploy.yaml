@@ -29,9 +29,8 @@ jobs:
              sudo mv yq /usr/local/bin/
     - name: Change image tag
       run: |
-             REPOSITORY=$(echo "${{ inputs.repository }}" | cut -d'/' -f3)
-             export IMAGE_TAG=$REPOSITORY:${{ inputs.tag }}
-             yq eval -i '.frankenstein.tag = env(IMAGE_TAG)' charts/values.yaml
+             export TAG=${{ inputs.tag }}
+             yq eval -i '.superchart-app.tag = env(TAG)' charts/values.yaml
              cat charts/values.yaml
     - name: 🚀 Commit to main branch for ArgoCD deploy
       run: |
