@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  workflow_call:
+    inputs:
+      dockerfile_path:
+        type: string
+        description: 'Caminho para o docker file'
+        required: false
+        default: '.'      
+      registry_url:
+        type: string
+        description: 'Nome do container registry'
+        required: false
+        default:  ${{ secrets.AZURE_ACR_URL }}
+      registry_username:
+        type: string
+        description: 'Username do container registry'
+        required: false
+        default:  ${{ secrets.AZURE_ACR_USERNAME }}
+      registry_password:
+        type: string
+        description: 'Password do container registry'
+        required: false
+        default:  ${{ secrets.AZURE_ACR_PASSWORD }}   
+      repository:
+        type: string
+        description: 'Repositorio'
+        required: false
+        default: ${{ github.repository }}
+    outputs:
+      repository:
+        description: "Repositorio"
+        value: ${{ jobs.build.outputs.repository }}
+      tag:
+        description: "Id da tag"
+        value: ${{ jobs.build.outputs.tag }}
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Docker build
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      repository: ${{ steps.build_push.outputs.repository }}
+      tag: ${{ steps.build_push.outputs.tag }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Log in to the Container registry
+      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      with:
+        registry: ${{ inputs.registry_url }}
+        username: ${{ inputs.registry_username }}
+        password: ${{ github.registry_password }}
+    - name: Docker build and push
+      id: build_push
+      run: |
+           echo "image buil"
+#          DATE=$(date +'%Y%m%d')
+#          REPOSITORY="${{ inputs.registry_url }}/${{ inputs.repository }}"
+#          TAG="${DATE}${GITHUB_RUN_NUMBER}"
+          
+#          docker build -t $REPOSITORY:$TAG -t $REPOSITORY:latest . -f ${{ inputs.dockerfile_path }}/Dockerfile
+#          docker push $REPOSITORY:$TAG 
+#          docker push $REPOSITORY:latest 
+          
+#          echo "repository=$REPOSITORY" >> $GITHUB_OUTPUT
+#          echo "tag=$TAG" >> $GITHUB_OUTPUT
