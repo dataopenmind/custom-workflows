@@ -8,7 +8,7 @@ on:
         description: 'Caminho para o docker file'
         required: false
         default: '.'
-      repository:
+      image:
         type: string
         description: 'Repositorio'
         required: false
@@ -17,13 +17,16 @@ on:
       tag:
         description: "Id da tag"
         value: ${{ jobs.build.outputs.tag }}
+      image:
+        description: "noma da imagem"
+        value: ${{ jobs.build.outputs.image }}
  
 jobs:
   build:
     runs-on: ubuntu-latest
     name: docker
     outputs:
-      repository: ${{ steps.build_push.outputs.repository }}
+      image: ${{ steps.build_push.outputs.image }}
       tag: ${{ steps.build_push.outputs.tag }}
     steps:
     - uses: actions/checkout@v3
@@ -36,11 +39,12 @@ jobs:
     - name: Docker build and push
       id: build_push
       run: |
-           DATE=$(date +'%Y%m%d')
-           REPOSITORY="${{ secrets.AZURE_ACR_URL }}/${{ inputs.repository }}"
+           IMAGE=${{ inputs.image }}
+           REPOSITORY="${{ secrets.AZURE_ACR_URL }}/${{ inputs.image }}"
            TAG="${GITHUB_SHA::7}"
            docker build -t $REPOSITORY:$TAG -t $REPOSITORY:latest . -f ${{ inputs.dockerfile_path }}/Dockerfile
            docker push $REPOSITORY:$TAG 
            docker push $REPOSITORY:latest 
-          
+
+           echo "image=$IMAGE" >> $GITHUB_OUTPUT
            echo "tag=$TAG" >> $GITHUB_OUTPUT
