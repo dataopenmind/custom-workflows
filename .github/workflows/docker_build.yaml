@@ -41,7 +41,7 @@ jobs:
       run: |
            DATE=$(date +'%Y%m%d')
            REPOSITORY="${{ inputs.registry_url }}/${{ inputs.repository }}"
-           TAG="${DATE}${GITHUB_SHA::7}"
+           TAG="${GITHUB_SHA::7}"
           
            docker build -t $REPOSITORY:$TAG -t $REPOSITORY:latest . -f ${{ inputs.dockerfile_path }}/Dockerfile
            docker push $REPOSITORY:$TAG 
