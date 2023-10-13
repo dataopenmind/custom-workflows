@@ -20,7 +20,6 @@ on:
 jobs:
   argocd:
     runs-on: ubuntu-latest
-    permissions: write-all
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -44,7 +43,7 @@ jobs:
     - name: 🚀 Commit to main branch for ArgoCD deploy
       run: |
         git config --local user.name dataom-bot
-        git config --local user.email bot@dataom.com.br
+        git config --local user.email diego.dso123@gmail.com
         git add charts/values.yaml
         git commit -m "🖉 Update changelog with ${GITHUB_REF#refs/*/}"
         git push
