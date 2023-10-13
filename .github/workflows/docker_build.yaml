@@ -21,7 +21,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Docker build
+    name: Docker
     outputs:
       repository: ${{ steps.build_push.outputs.repository }}
       tag: ${{ steps.build_push.outputs.tag }}
