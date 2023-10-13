@@ -12,7 +12,8 @@ on:
         type: string
         description: 'Repositorio'
         required: false
-        default: ${{ github.repository }}
+        default: ${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/} 
+        #${{ github.repository }}
     outputs:
       repository:
         description: "Repositorio"
