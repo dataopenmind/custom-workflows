@@ -8,21 +8,21 @@ on:
         description: 'Caminho para o docker file'
         required: false
         default: '.'      
-      registry_url:
-        type: string
-        description: 'Nome do container registry'
-        required: false
-        default:  ${{ secrets.AZURE_ACR_URL }}
-      registry_username:
-        type: string
-        description: 'Username do container registry'
-        required: false
-        default:  ${{ secrets.AZURE_ACR_USERNAME }}
-      registry_password:
-        type: string
-        description: 'Password do container registry'
-        required: false
-        default:  ${{ secrets.AZURE_ACR_PASSWORD }}   
+#      registry_url:
+#        type: string
+#        description: 'Nome do container registry'
+#        required: false
+#        default:  ${{ secrets.AZURE_ACR_URL }}
+#      registry_username:
+#        type: string
+#        description: 'Username do container registry'
+#        required: false
+#        default:  ${{ secrets.AZURE_ACR_USERNAME }}
+#      registry_password:
+#        type: string
+#        description: 'Password do container registry'
+#        required: false
+#        default:  ${{ secrets.AZURE_ACR_PASSWORD }}   
       repository:
         type: string
         description: 'Repositorio'
@@ -51,9 +51,9 @@ jobs:
     - name: Log in to the Container registry
       uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
       with:
-        registry: ${{ inputs.registry_url }}
-        username: ${{ inputs.registry_username }}
-        password: ${{ github.registry_password }}
+        registry: ${{ secrets.AZURE_ACR_URL }}
+        username: ${{ secrets.AZURE_ACR_USERNAME }}
+        password: ${{ secrets.AZURE_ACR_PASSWORD }} 
     - name: Docker build and push
       id: build_push
       run: |
