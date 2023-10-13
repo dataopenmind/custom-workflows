@@ -40,9 +40,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Docker build
-    permissions:
-      contents: read
-      packages: write
+#    permissions:
+#      contents: read
+#      packages: write
     outputs:
       repository: ${{ steps.build_push.outputs.repository }}
       tag: ${{ steps.build_push.outputs.tag }}
