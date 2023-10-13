@@ -1,8 +1,5 @@
 name: Argocd
 
-permissions:
-  contents: write
-
 on:
   workflow_call:
     inputs:
@@ -23,6 +20,8 @@ on:
 jobs:
   argocd:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - name: Checkout
       uses: actions/checkout@v3
