@@ -12,8 +12,7 @@ on:
         type: string
         description: 'Repositorio'
         required: false
-        default: ${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/} 
-        #${{ github.repository }}
+        default: ${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}
     outputs:
       repository:
         description: "Repositorio"
@@ -41,14 +40,11 @@ jobs:
       id: build_push
       run: |
            DATE=$(date +'%Y%m%d')
-           REPOSITORY="${{ secrets.AZURE_ACR_URL }}/$GITHUB_REPOSITORY_OWNER"
+           REPOSITORY="${{ secrets.AZURE_ACR_URL }}/${{ inputs.repository }}"
            TAG="${GITHUB_SHA::7}"
-
-           REPO_NAME=${{ inputs.repository }}
-           echo $REPO_NAME
-#           docker build -t $REPOSITORY:$TAG -t $REPOSITORY:latest . -f ${{ inputs.dockerfile_path }}/Dockerfile
-#           docker push $REPOSITORY:$TAG 
-#           docker push $REPOSITORY:latest 
+           docker build -t $REPOSITORY:$TAG -t $REPOSITORY:latest . -f ${{ inputs.dockerfile_path }}/Dockerfile
+           docker push $REPOSITORY:$TAG 
+           docker push $REPOSITORY:latest 
           
-#           echo "repository=$REPOSITORY" >> $GITHUB_OUTPUT
-#           echo "tag=$TAG" >> $GITHUB_OUTPUT
+           echo "repository=$REPOSITORY" >> $GITHUB_OUTPUT
+           echo "tag=$TAG" >> $GITHUB_OUTPUT
