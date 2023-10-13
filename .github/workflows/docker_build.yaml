@@ -40,12 +40,13 @@ jobs:
       id: build_push
       run: |
            DATE=$(date +'%Y%m%d')
-           REPOSITORY="${{ inputs.registry_url }}/${{ inputs.repository }}"
+           REPOSITORY="${{ secrets.AZURE_ACR_URL }}/${{ inputs.repository }"
            TAG="${GITHUB_SHA::7}"
+
+           echo $REPOSITORY:$TAG
+#           docker build -t $REPOSITORY:$TAG -t $REPOSITORY:latest . -f ${{ inputs.dockerfile_path }}/Dockerfile
+#           docker push $REPOSITORY:$TAG 
+#           docker push $REPOSITORY:latest 
           
-           docker build -t $REPOSITORY:$TAG -t $REPOSITORY:latest . -f ${{ inputs.dockerfile_path }}/Dockerfile
-           docker push $REPOSITORY:$TAG 
-           docker push $REPOSITORY:latest 
-          
-           echo "repository=$REPOSITORY" >> $GITHUB_OUTPUT
-           echo "tag=$TAG" >> $GITHUB_OUTPUT
+#           echo "repository=$REPOSITORY" >> $GITHUB_OUTPUT
+#           echo "tag=$TAG" >> $GITHUB_OUTPUT
