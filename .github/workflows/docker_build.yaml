@@ -7,22 +7,7 @@ on:
         type: string
         description: 'Caminho para o docker file'
         required: false
-        default: '.'      
-#      registry_url:
-#        type: string
-#        description: 'Nome do container registry'
-#        required: false
-#        default:  ${{ secrets.AZURE_ACR_URL }}
-#      registry_username:
-#        type: string
-#        description: 'Username do container registry'
-#        required: false
-#        default:  ${{ secrets.AZURE_ACR_USERNAME }}
-#      registry_password:
-#        type: string
-#        description: 'Password do container registry'
-#        required: false
-#        default:  ${{ secrets.AZURE_ACR_PASSWORD }}   
+        default: '.'
       repository:
         type: string
         description: 'Repositorio'
@@ -40,9 +25,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Docker build
-#    permissions:
-#      contents: read
-#      packages: write
     outputs:
       repository: ${{ steps.build_push.outputs.repository }}
       tag: ${{ steps.build_push.outputs.tag }}
