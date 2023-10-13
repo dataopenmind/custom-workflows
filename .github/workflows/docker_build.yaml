@@ -40,7 +40,7 @@ jobs:
       id: build_push
       run: |
            DATE=$(date +'%Y%m%d')
-           REPOSITORY="${{ secrets.AZURE_ACR_URL }}/${{ inputs.repository }}"
+           REPOSITORY="${{ secrets.AZURE_ACR_URL }}/$GITHUB_REPOSITORY_OWNER"
            TAG="${GITHUB_SHA::7}"
 
            echo $REPOSITORY:$TAG
