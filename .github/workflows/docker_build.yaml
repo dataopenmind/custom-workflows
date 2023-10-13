@@ -39,8 +39,8 @@ jobs:
     - name: Docker build and push
       id: build_push
       run: |
-           echo "image buil"
-           echo ${{ github.sha }}
+           echo "image build"
+           echo ${GITHUB_SHA::7}
 #          DATE=$(date +'%Y%m%d')
 #          REPOSITORY="${{ inputs.registry_url }}/${{ inputs.repository }}"
 #          TAG="${DATE}${GITHUB_RUN_NUMBER}"
