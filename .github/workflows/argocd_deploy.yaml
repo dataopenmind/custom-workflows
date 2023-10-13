@@ -23,9 +23,9 @@ jobs:
          fetch-depth: 0
     - name: Setup yq
       run: |
-             curl -LO https://github.com/mikefarah/yq/releases/download/${{ inputs.yq_version }}/yq_linux_arm64
-             chmod +x yq_linux_arm64
-             mv yq_linux_arm64 yq
+             curl -LO https://github.com/mikefarah/yq/releases/download/${{ inputs.yq_version }}/yq_linux_amd64
+             chmod +x yq_linux_amd64
+             mv yq_linux_amd64 yq
              sudo mv yq /usr/local/bin/
     - name: Change image tag
       run: |
