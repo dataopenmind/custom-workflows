@@ -1,5 +1,8 @@
 name: Argocd
 
+permissions:
+  contents: read
+
 on:
   workflow_call:
     inputs:
@@ -11,6 +14,10 @@ on:
       tag:
         type: string
         description: 'Image tag'
+        required: true
+      image:
+        type: string
+        description: 'Image name'
         required: true
         
 jobs:
@@ -30,7 +37,11 @@ jobs:
     - name: Change image tag
       run: |
              export TAG=${{ inputs.tag }}
+             export IMAGE=${{ inputs.image }}
+             
              yq eval -i '.superchart-app.tag = env(TAG)' charts/values.yaml
+             yq eval -i '.superchart-app.image = env(IMAGE)' charts/values.yaml
+             
              cat charts/values.yaml
     - name: 🚀 Commit to main branch for ArgoCD deploy
       run: |
