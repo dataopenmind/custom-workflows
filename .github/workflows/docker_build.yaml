@@ -44,7 +44,7 @@ jobs:
            REPOSITORY="${{ secrets.AZURE_ACR_URL }}/$GITHUB_REPOSITORY_OWNER"
            TAG="${GITHUB_SHA::7}"
 
-           REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}
+           REPO_NAME=${{ inputs.repository }}
            echo $REPO_NAME
 #           docker build -t $REPOSITORY:$TAG -t $REPOSITORY:latest . -f ${{ inputs.dockerfile_path }}/Dockerfile
 #           docker push $REPOSITORY:$TAG 
