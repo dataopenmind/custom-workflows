@@ -20,10 +20,6 @@ on:
 jobs:
   argocd:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    env:
-      GITHUB_TOKEN: ${{ github.token }}
     steps:
     - name: Checkout
       uses: actions/checkout@v3
