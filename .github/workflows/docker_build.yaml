@@ -39,15 +39,13 @@ jobs:
     - name: Docker build and push
       id: build_push
       run: |
-           echo "image build"
-           echo ${GITHUB_SHA::7}
-#          DATE=$(date +'%Y%m%d')
-#          REPOSITORY="${{ inputs.registry_url }}/${{ inputs.repository }}"
-#          TAG="${DATE}${GITHUB_RUN_NUMBER}"
+           DATE=$(date +'%Y%m%d')
+           REPOSITORY="${{ inputs.registry_url }}/${{ inputs.repository }}"
+           TAG="${DATE}${GITHUB_SHA::7}"
           
-#          docker build -t $REPOSITORY:$TAG -t $REPOSITORY:latest . -f ${{ inputs.dockerfile_path }}/Dockerfile
-#          docker push $REPOSITORY:$TAG 
-#          docker push $REPOSITORY:latest 
+           docker build -t $REPOSITORY:$TAG -t $REPOSITORY:latest . -f ${{ inputs.dockerfile_path }}/Dockerfile
+           docker push $REPOSITORY:$TAG 
+           docker push $REPOSITORY:latest 
           
-#          echo "repository=$REPOSITORY" >> $GITHUB_OUTPUT
-#          echo "tag=$TAG" >> $GITHUB_OUTPUT
+           echo "repository=$REPOSITORY" >> $GITHUB_OUTPUT
+           echo "tag=$TAG" >> $GITHUB_OUTPUT
