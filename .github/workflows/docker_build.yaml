@@ -14,9 +14,6 @@ on:
         required: false
         default: ${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}
     outputs:
-      repository:
-        description: "Repositorio"
-        value: ${{ jobs.build.outputs.repository }}
       tag:
         description: "Id da tag"
         value: ${{ jobs.build.outputs.tag }}
@@ -46,5 +43,4 @@ jobs:
            docker push $REPOSITORY:$TAG 
            docker push $REPOSITORY:latest 
           
-           echo "repository=$REPOSITORY" >> $GITHUB_OUTPUT
            echo "tag=$TAG" >> $GITHUB_OUTPUT
