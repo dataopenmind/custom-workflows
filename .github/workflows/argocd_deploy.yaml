@@ -40,10 +40,19 @@ jobs:
              yq eval -i '.superchart-app.image = env(IMAGE)' charts/values.yaml
              
              cat charts/values.yaml
-    - name: 🚀 Commit to main branch for ArgoCD deploy
+
+    - name: 🚀  Deploy ArgoCD to Homolog
       run: |
         git config --local user.name dataom-bot
         git config --local user.email bot@dataom.com.br
-        git add charts/values.yaml
+        git add charts/values-homolog.yaml
+        git commit -m "🖉 Update changelog with ${GITHUB_REF#refs/*/}"
+        git push
+
+    - name: 🚀  Deploy ArgoCD to Production
+      run: |
+        git config --local user.name dataom-bot
+        git config --local user.email bot@dataom.com.br
+        git add charts/values-prod.yaml
         git commit -m "🖉 Update changelog with ${GITHUB_REF#refs/*/}"
         git push
