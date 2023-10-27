@@ -31,6 +31,7 @@ jobs:
              chmod +x yq_linux_amd64
              mv yq_linux_amd64 yq
              sudo mv yq /usr/local/bin/
+             
     - name: Change image tag
       run: |
              export TAG=${{ inputs.tag }}
@@ -41,18 +42,38 @@ jobs:
              
              cat charts/values.yaml
 
-    - name: 🚀  Deploy ArgoCD to Homolog
+    - name: 🚀  Deploy ArgoCD to Homologacao
       run: |
+
+        export TAG=${{ inputs.tag }}
+        export IMAGE=${{ inputs.image }}
+             
+        yq eval -i '.superchart-app.tag = env(TAG)' charts/values-hom.yaml
+        yq eval -i '.superchart-app.image = env(IMAGE)' charts/values-hom.yaml
+
+        echo "Tag changed"     
+        cat charts/values-hom.yaml
+
         git config --local user.name dataom-bot
         git config --local user.email bot@dataom.com.br
-        git add charts/values-homolog.yaml
-        git commit -m "🖉 Update changelog with ${GITHUB_REF#refs/*/}"
+        git add charts/values-hom.yaml
+        git commit -m "🖉 Update homolog changelog with ${GITHUB_REF#refs/*/}"
         git push
 
     - name: 🚀  Deploy ArgoCD to Production
       run: |
+
+        export TAG=${{ inputs.tag }}
+        export IMAGE=${{ inputs.image }}
+             
+        yq eval -i '.superchart-app.tag = env(TAG)' charts/values-prod.yaml
+        yq eval -i '.superchart-app.image = env(IMAGE)' charts/values-prod.yaml
+
+        echo "Tag changed"     
+        cat charts/values-prod.yaml
+
         git config --local user.name dataom-bot
         git config --local user.email bot@dataom.com.br
         git add charts/values-prod.yaml
-        git commit -m "🖉 Update changelog with ${GITHUB_REF#refs/*/}"
+        git commit -m "🖉 Update production changelog with ${GITHUB_REF#refs/*/}"
         git push
