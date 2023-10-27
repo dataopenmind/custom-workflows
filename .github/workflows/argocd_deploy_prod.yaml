@@ -16,6 +16,11 @@ on:
         type: string
         description: 'Image name'
         required: true
+      remote_branch:
+        type: string
+        description: 'Nome da branch remota'
+        default: 'main'
+        required: false        
         
 jobs:
   argocd:
@@ -48,4 +53,4 @@ jobs:
         git config --local user.email bot@dataom.com.br
         git add charts/values-prod.yaml
         git commit -m "🖉 Update production changelog with ${GITHUB_REF#refs/*/}"
-        git push
+        git push origin HEAD:${{ inputs.remote_branch }}
