@@ -32,16 +32,6 @@ jobs:
              mv yq_linux_amd64 yq
              sudo mv yq /usr/local/bin/
              
-    - name: Change image tag
-      run: |
-             export TAG=${{ inputs.tag }}
-             export IMAGE=${{ inputs.image }}
-             
-             yq eval -i '.superchart-app.tag = env(TAG)' charts/values.yaml
-             yq eval -i '.superchart-app.image = env(IMAGE)' charts/values.yaml
-             
-             cat charts/values.yaml
-
     - name: 🚀  Deploy ArgoCD to Homologacao
       run: |
 
