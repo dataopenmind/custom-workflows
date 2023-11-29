@@ -16,6 +16,11 @@ on:
         type: string
         description: 'Image name'
         required: true
+      remote_branch:
+        type: string
+        description: 'Nome da branch remota'
+        default: 'develop'
+        required: false              
         
 jobs:
   argocd:
