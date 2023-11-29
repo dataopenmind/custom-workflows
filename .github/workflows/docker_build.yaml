@@ -45,6 +45,6 @@ jobs:
            echo "image=$IMAGE" >> $GITHUB_OUTPUT
            echo "tag=$TAG" >> $GITHUB_OUTPUT
            
-#           docker build -t $REPOSITORY:$TAG -t $REPOSITORY:latest . -f ${{ inputs.dockerfile_path }}/Dockerfile
-#           docker push $REPOSITORY:$TAG 
-#           docker push $REPOSITORY:latest 
+           docker build -t $REPOSITORY:$TAG -t $REPOSITORY:latest . -f ${{ inputs.dockerfile_path }}/Dockerfile
+           docker push $REPOSITORY:$TAG 
+           docker push $REPOSITORY:latest
