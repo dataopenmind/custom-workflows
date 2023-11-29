@@ -1,0 +1,22 @@
+name: Argocd
+
+on:
+  workflow_call:
+    inputs:
+      yq_version:
+        type: string
+        description: 'yq version'
+        default: 'v4.35.1'
+        required: false  
+        
+jobs:
+  argocd:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+         fetch-depth: 0
+    - name: Setup yq
+      run: |
+            echo "its working"
