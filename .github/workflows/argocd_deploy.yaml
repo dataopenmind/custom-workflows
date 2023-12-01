@@ -44,6 +44,6 @@ jobs:
       run: |
         git config --local user.name dataom-bot
         git config --local user.email bot@dataom.com.br
-        git add charts/values.yaml
+        git add charts/values-prod.yaml
         git commit -m "🖉 Update changelog with ${GITHUB_REF#refs/*/}"
         git push
