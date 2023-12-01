@@ -39,7 +39,7 @@ jobs:
              yq eval -i '.superchart-app.tag = env(TAG)' charts/values-prod.yaml
              yq eval -i '.superchart-app.image = env(IMAGE)' charts/values-prod.yaml
              
-             cat charts/values.yaml
+             cat charts/values-prod.yaml
     - name: 🚀 Commit to main branch for ArgoCD deploy
       run: |
         git config --local user.name dataom-bot
