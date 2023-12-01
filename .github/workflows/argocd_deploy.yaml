@@ -36,8 +36,8 @@ jobs:
              export TAG=${{ inputs.tag }}
              export IMAGE=${{ inputs.image }}
              
-             yq eval -i '.superchart-app.tag = env(TAG)' charts/values.yaml
-             yq eval -i '.superchart-app.image = env(IMAGE)' charts/values.yaml
+             yq eval -i '.superchart-app.tag = env(TAG)' charts/values-prod.yaml
+             yq eval -i '.superchart-app.image = env(IMAGE)' charts/values-prod.yaml
              
              cat charts/values.yaml
     - name: 🚀 Commit to main branch for ArgoCD deploy
